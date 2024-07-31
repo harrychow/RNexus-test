@@ -18,7 +18,10 @@
         </div>
         <input type="hidden" name="id" value="{{$todo->id}}">
         <div class="form-group m-3">
-            <input type="submit" class="btn btn-primary float-end" value="Submit">
+            <input type="submit" class="btn btn-primary" value="Save">
+            <span>
+                <a onclick="return confirm('Are you sure?')" href="{{route("todo.delete",$todo->id)}}" class="btn btn-danger btn-sm">Delete</a>
+            </span>
         </div>
     </form>
 

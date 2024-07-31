@@ -81,4 +81,16 @@ class TodoController extends Controller
         return redirect(route("todo.home"));
     }
 
+    /**
+     * Delete todo item
+     *
+     * @param $id
+     * @return \Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function delete($id){
+        Todo::find($id)->delete();
+
+        return redirect(route("todo.home"));
+    }
+
 }

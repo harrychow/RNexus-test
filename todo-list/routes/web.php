@@ -20,3 +20,6 @@ Route::get('/edit/{id}',[TodoController::class,'edit'])->name("todo.edit");
 
 //update existing todo data
 Route::post('/edit', [TodoController::class,'saveExisting'])->name("todo.saveExisting");
+
+//delete toto
+Route::get('/delete/{id}', [TodoController::class,'delete'])->name("todo.delete");
