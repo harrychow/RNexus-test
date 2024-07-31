@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TodoController extends Controller
 {
@@ -18,15 +19,6 @@ class TodoController extends Controller
         $formatted_todos = compact('todos');
 
         return view('index')->with($formatted_todos);
-    }
-
-    /**
-     * Form to create new todo item
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
-     */
-    public function create(){
-        return view('todos.create');
     }
 
     /**
@@ -53,11 +45,14 @@ class TodoController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    public function edit($id){
+    public function edit($id) {
         $todo = Todo::find($id);
-        $formatted_todo = compact('todo');
+        if ($todo) {
+            $formatted_todo = compact('todo');
+            return view("edit")->with($formatted_todo);
+        }
 
-        return view("edit")->with($formatted_todo);
+        return redirect(route("todo.home"));
     }
 
     /**
@@ -66,18 +61,41 @@ class TodoController extends Controller
      * @param Request $request
      * @return \Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function saveExisting(Request $request){
+    public function saveExisting(Request $request) {
         $request->validate(
             [
-                'description'=>'required'
+                'id' => ['required', 'integer'],
+                'description'=>['required', 'max:255'],
+                'completed' => Rule::in([1,0]),
             ]
         );
-        $id = $request['id'];
 
-        $todo = Todo::find($id);
-        $todo->description = $request['description'];
-        $todo->completed = $request['completed'] ?? 0;
-        $todo->save();
+        $todo = Todo::find($request['id']);
+        if ($todo) {
+            $todo->description = $request['description'];
+            $todo->completed = $request['completed'] ?? 0;
+            $todo->save();
+        }
+
+        return redirect(route("todo.home"));
+    }
+
+    /**
+     * Mark todo item as completed
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function complete(Request $request) {
+        $request->validate([
+            'id' => ['required', 'integer'],
+        ]);
+
+        $todo = Todo::find($request['id']);
+        if ($todo) {
+            $todo->completed = 1;
+            $todo->save();
+        }
 
         return redirect(route("todo.home"));
     }
