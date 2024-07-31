@@ -12,7 +12,7 @@
             <ul class="list-group">
                 @foreach($todos as $todo)
                     <li class="list-group-item">
-                        <a href="/">{{$todo->description}}</a>
+                        <a href="/edit/{{$todo->id}}">{{$todo->description}}</a>
                     </li>
                 @endforeach
                 <li class="list-group-item"><a href="/">Buy Groceries</a></li>

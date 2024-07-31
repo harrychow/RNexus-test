@@ -1,17 +1,14 @@
 @extends('layouts.app')
-
 @section('title')
-    Create Todo
+    Edit
 @endsection
-
 @section('content')
 
-    <form method="POST" action="{{route("todo.saveNew")}}" class="mt-4 p-4">
+    <form action="{{route("todo.saveExisting")}}" method="POST">
         @csrf
-
         <div class="form-group m-3">
             <label for="description">Description
-                <input type="text" class="form-control" name="description">
+                <input type="text" class="form-control" name="description" value="{{$todo->description}}">
             </label>
             <div class="text-danger">
                 @error('description')
@@ -19,6 +16,7 @@
                 @enderror
             </div>
         </div>
+        <input type="hidden" name="id" value="{{$todo->id}}">
         <div class="form-group m-3">
             <input type="submit" class="btn btn-primary float-end" value="Submit">
         </div>

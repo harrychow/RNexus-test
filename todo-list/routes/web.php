@@ -14,3 +14,9 @@ Route::get('/create', function () {
 
 // save new todo
 Route::post('/create', [TodoController::class,'saveNew'])->name("todo.saveNew");
+
+//edit existing todo
+Route::get('/edit/{id}',[TodoController::class,'edit'])->name("todo.edit");
+
+//update existing todo data
+Route::post('/edit', [TodoController::class,'saveExisting'])->name("todo.saveExisting");

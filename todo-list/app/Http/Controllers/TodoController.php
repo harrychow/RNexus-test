@@ -47,4 +47,38 @@ class TodoController extends Controller
         return redirect(route("todo.home"));
     }
 
+    /**
+     * Edit todo item view
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    public function edit($id){
+        $todo = Todo::find($id);
+        $formatted_todo = compact('todo');
+
+        return view("edit")->with($formatted_todo);
+    }
+
+    /**
+     * Save todo item from edit view
+     *
+     * @param Request $request
+     * @return \Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function saveExisting(Request $request){
+        $request->validate(
+            [
+                'description'=>'required'
+            ]
+        );
+        $id = $request['id'];
+
+        $todo = Todo::find($id);
+        $todo->description = $request['description'];
+        $todo->save();
+
+        return redirect(route("todo.home"));
+    }
+
 }

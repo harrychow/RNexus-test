@@ -12,7 +12,7 @@
 
 <nav class="navbar navbar-light bg-light">
     <div class="container">
-        <span class="navbar-brand mb-0 h1">Todos</span>
+        <span class="navbar-brand mb-0 h1"><a href="/">Todos</a></span>
     </div>
 </nav>
 
