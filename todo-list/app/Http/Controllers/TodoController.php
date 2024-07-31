@@ -76,6 +76,7 @@ class TodoController extends Controller
 
         $todo = Todo::find($id);
         $todo->description = $request['description'];
+        $todo->completed = $request['completed'] ?? 0;
         $todo->save();
 
         return redirect(route("todo.home"));

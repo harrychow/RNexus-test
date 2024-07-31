@@ -23,3 +23,6 @@ Route::post('/edit', [TodoController::class,'saveExisting'])->name("todo.saveExi
 
 //delete toto
 Route::get('/delete/{id}', [TodoController::class,'delete'])->name("todo.delete");
+
+// complete a todo
+Route::get('/complete/{id}', [TodoController::class, 'complete'])->name("todo.complete");

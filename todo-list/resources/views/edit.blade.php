@@ -15,6 +15,10 @@
                 {{$message}}
                 @enderror
             </div>
+
+            <label for="completed">Completed
+                <input type="checkbox" class="form-check-input" value="1" name="completed" @if($todo->completed === 1) checked @endif>
+            </label>
         </div>
         <input type="hidden" name="id" value="{{$todo->id}}">
         <div class="form-group m-3">

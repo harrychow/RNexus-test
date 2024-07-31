@@ -12,7 +12,13 @@
             <ul class="list-group">
                 @foreach($todos as $todo)
                     <li class="list-group-item">
-                        <a href="/edit/{{$todo->id}}">{{$todo->description}}</a>
+                        <a href="/edit/{{$todo->id}}">
+                            @if ($todo->completed !== 0)
+                                <s>{{$todo->description}}</s>
+                            @else
+                                {{$todo->description}}
+                            @endif
+                        </a>
                     </li>
                 @endforeach
                 <li class="list-group-item"><a href="/">Buy Groceries</a></li>
