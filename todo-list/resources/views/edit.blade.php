@@ -8,7 +8,7 @@
     <form action="{{route("todo.saveExisting")}}" method="POST">
         @csrf
         @method('PUT')
-        <div class="form-group row">
+        <div class="form-group m-4 row">
             <label for="description">Description
                 <input type="text" class="form-control" name="description" value="{{$todo->description}}">
             </label>
@@ -19,7 +19,7 @@
             </div>
 
         </div>
-        <div class="form-group m-4">
+        <div class="form-group m-4 row">
             <label for="completed">Completed
                 <input type="checkbox" class="form-check-input" value="1" name="completed" @if($todo->completed === 1) checked @endif>
             </label>

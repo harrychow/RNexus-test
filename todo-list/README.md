@@ -14,6 +14,12 @@ No authentication required for both ends.
 
 ### Setup
 
+Install the dependencies via composer
+
+```bash
+docker run --rm -v "$(pwd)":/app -u 1000:1000 -e COMPOSER_HOME=/tmp --workdir /app bitnami/laravel composer install
+```
+
 Create the `.env` file.
 
 ```bash
@@ -23,7 +29,13 @@ cp .env.example .env
 Start the application using Docker Compose in the root directory.
 
 ```bash
-docker compose up
+docker compose up -d
+```
+
+Create database and run migration files (Confirm the container name first by running 'docker ps')
+
+```bash
+docker exec todo-list-laravel-rn-1 php artisan migrate
 ```
 
 You should now be able to access the application at `http://localhost`.
@@ -47,3 +59,11 @@ PUT
 
 DELETE
 * /delete/{id} - Deletes an existing todo item.
+
+
+*Note*
+When testing api requests, make sure to add the following header to your requests:
+
+* Accept: application/json
+
+This ensures laravel will return the correctly formatted data (in this case, json)

@@ -27,8 +27,8 @@
         <thead>
         <tr>
             <th scope="col">Description</th>
-            <th scope="col">Date Added</th>
-            <th scope="col">Edit</th>
+            <th scope="col" style="width:20%">Date Added</th>
+            <th scope="col" style="width:35%">Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -42,25 +42,29 @@
                     @endif</td>
                 <td>{{$todo->created_at}}</td>
                 <td>
-                    <form action="{{route("todo.complete", $todo->id)}}" method="post">
-                        @csrf
-                        @method('PUT')
-                        <button class="btn btn-success btn-sm" type="submit">
-                            <i class="bi bi-check-circle"></i> Mark Complete
-                        </button>
-                    </form>
+                    <div class="d-flex justify-content-start">
+                        <form action="{{route("todo.complete", $todo->id)}}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <button class="btn btn-success btn-sm pl-1" type="submit">
+                                <i class="bi bi-check-circle"></i> Mark Complete
+                            </button>
+                        </form>
+                        &nbsp;
 
-                    <a class="btn btn-primary btn-sm" href="{{route("todo.edit", $todo->id)}}">
-                        <i class="bi bi-pencil fa-4x"></i>
-                        Edit
-                    </a>
+                        <a class="btn btn-primary btn-sm pl-1" href="{{route("todo.edit", $todo->id)}}">
+                            <i class="bi bi-pencil fa-4x"></i>
+                            Edit
+                        </a>
+                        &nbsp;
 
-                    <form action="{{route("todo.delete",$todo->id)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash"></i> Delete</button>
-                    </form>
+                        <form action="{{route("todo.delete",$todo->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm pl-1">
+                                <i class="bi bi-trash"></i> Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach
