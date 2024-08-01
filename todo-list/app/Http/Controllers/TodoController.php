@@ -52,6 +52,7 @@ class TodoController extends Controller
             return view("edit")->with($formatted_todo);
         }
 
+        // Redirect back to homepage if todo doesn't exist
         return redirect(route("todo.home"));
     }
 
@@ -86,12 +87,9 @@ class TodoController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function complete(Request $request) {
-        $request->validate([
-            'id' => ['required', 'integer'],
-        ]);
+    public function complete($id) {
+        $todo = Todo::find($id);
 
-        $todo = Todo::find($request['id']);
         if ($todo) {
             $todo->completed = 1;
             $todo->save();
@@ -109,7 +107,7 @@ class TodoController extends Controller
     public function delete($id){
         Todo::find($id)->delete();
 
-        return redirect(route("todo.home"));
+        return redirect()->route('todo.home');
     }
 
 }

@@ -15,14 +15,14 @@ Route::get('/create', function () {
 // save new todo
 Route::post('/create', [TodoController::class,'saveNew'])->name("todo.saveNew");
 
-//edit existing todo
+//edit view for existing todo
 Route::get('/edit/{id}',[TodoController::class,'edit'])->name("todo.edit");
 
 //update existing todo data
-Route::post('/edit', [TodoController::class,'saveExisting'])->name("todo.saveExisting");
+Route::put('/edit', [TodoController::class,'saveExisting'])->name("todo.saveExisting");
 
 //delete toto
-Route::get('/delete/{id}', [TodoController::class,'delete'])->name("todo.delete");
+Route::delete('/delete/{id}', [TodoController::class,'delete'])->name("todo.delete");
 
 // complete a todo
-Route::get('/complete/{id}', [TodoController::class, 'complete'])->name("todo.complete");
+Route::put('/complete/{id}', [TodoController::class, 'complete'])->name("todo.complete");

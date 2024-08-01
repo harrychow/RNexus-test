@@ -42,20 +42,22 @@
                     @endif</td>
                 <td>{{$todo->created_at}}</td>
                 <td>
-                    <a class="link-success" href="{{route("todo.complete", $todo->id)}}">
-                        <i class="bi bi-check-lg  fa-4x"></i>
-                        Mark Complete
-                    </a>
+                    <form action="{{route("todo.complete", $todo->id)}}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-primary btn-sm" type="submit">Mark Complete</button>
+                    </form>
                     <br>
                     <a class="link-primary" href="{{route("todo.edit", $todo->id)}}">
                         <i class="bi bi-pencil fa-4x"></i>
                         Edit
                     </a>
                     <br>
-                    <a class="link-danger" onclick="return confirm('Are you sure?')" href="{{route("todo.delete",$todo->id)}}">
-                        <i class="bi bi-x  fa-4x"></i>
-                        Delete
-                    </a>
+                    <form action="{{route("todo.delete",$todo->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
