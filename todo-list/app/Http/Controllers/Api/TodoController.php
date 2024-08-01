@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Todo;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -30,8 +31,11 @@ class TodoController extends Controller
         );
 
         $todo = new Todo();
-        $todo->description = $request['description'];
-        $todo->save();
+        try {
+            $todo->description = $request['description'];
+            $todo->save();
+        } catch (\Exception $e) {}
+
         return $todo;
     }
 
@@ -52,9 +56,12 @@ class TodoController extends Controller
 
         $id = $request['id'];
         $todo = Todo::find($id);
-        $todo->description = $request['description'];
-        $todo->completed = $request['completed'] ?? 0;
-        $todo->save();
+        try {
+            $todo->description = $request['description'];
+            $todo->completed = $request['completed'] ?? 0;
+            $todo->save();
+        } catch (\Exception $e) {}
+
         return $todo;
 
     }
@@ -69,8 +76,11 @@ class TodoController extends Controller
         $id = $request['id'];
 
         $todo = Todo::find($id);
-        $todo->completed = 1;
-        $todo->save();
+        try {
+            $todo->completed = 1;
+            $todo->save();
+        } catch (\Exception $e) {}
+
         return $todo;
     }
 
@@ -78,10 +88,18 @@ class TodoController extends Controller
      * Delete todo item
      *
      * @param $id
-     * @return true
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete($id){
-        return Todo::find($id)->delete();
+        try {
+            Todo::find($id)->delete();
+        } catch (\Exception $e) {}
+
+        $data = [
+            'success' => true,
+            'message'=> 'Delete successful'
+        ] ;
+        return response()->json($data);
     }
 
 }

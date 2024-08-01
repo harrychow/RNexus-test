@@ -45,18 +45,21 @@
                     <form action="{{route("todo.complete", $todo->id)}}" method="post">
                         @csrf
                         @method('PUT')
-                        <button class="btn btn-primary btn-sm" type="submit">Mark Complete</button>
+                        <button class="btn btn-success btn-sm" type="submit">
+                            <i class="bi bi-check-circle"></i> Mark Complete
+                        </button>
                     </form>
-                    <br>
-                    <a class="link-primary" href="{{route("todo.edit", $todo->id)}}">
+
+                    <a class="btn btn-primary btn-sm" href="{{route("todo.edit", $todo->id)}}">
                         <i class="bi bi-pencil fa-4x"></i>
                         Edit
                     </a>
-                    <br>
+
                     <form action="{{route("todo.delete",$todo->id)}}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i> Delete</button>
                     </form>
                 </td>
             </tr>
